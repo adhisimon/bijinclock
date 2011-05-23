@@ -23,6 +23,7 @@ install -m 744 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%files
 %{_bindir}/bijinclock
 
 %changelog
