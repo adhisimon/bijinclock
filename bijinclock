@@ -1,0 +1,216 @@
+#!/usr/bin/env python
+
+import threading
+import thread
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import gobject
+gobject.threads_init()
+
+import os
+import re
+import shutil
+import sys
+import urllib
+from urllib import FancyURLopener
+
+from datetime import datetime
+from datetime import time
+from datetime import timedelta
+from time import sleep
+
+class MyUrlOpener(FancyURLopener):
+    version = 'BijinClock http://adhisimon.or.id/bijinclock'
+
+class Bijin:
+    url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
+    cache_dir = "~/.bijinclock/caches"
+    is_fetch_next = True
+    window = None
+    clock_image = None
+    is_exit = False
+    last_time = None
+
+    def __init__(self):
+        self.init_cache_dir()
+
+        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.window.set_title('loading...')
+        self.window.set_size_request(160, 240)
+
+        ui = """<ui>
+            <popup name="Popup">
+                <menuitem name="About" action="About" />
+            </popup>
+        </ui>"""
+
+        self.ui_manager = gtk.UIManager()
+        accel_group = self.ui_manager.get_accel_group()
+        self.window.add_accel_group(accel_group)
+        action_group = gtk.ActionGroup("Bijin Clock Action Group")
+        action_group.add_actions(
+            [
+                ("About", None, "_About", None,
+                    None, self.show_about_window
+                ),
+            ]
+        )
+        self.ui_manager.insert_action_group(action_group, 0)
+        self.ui_manager.add_ui_from_string(ui)
+        self.popup = self.ui_manager.get_widget("/Popup")
+
+        event_box = gtk.EventBox()
+        self.window.add(event_box)
+
+        self.clock_image = gtk.Image()
+        event_box.add(self.clock_image)
+
+        self.window.show_all()
+
+        event_box.connect("button-press-event", self.on_button_press_event)
+        self.window.connect("delete_event", self.onMainDelete)
+        self.window.connect("destroy", self.onMainDestroy)
+
+    def init_cache_dir(self):
+        self.cache_dir = os.path.expanduser(self.cache_dir)
+        try:
+            shutil.rmtree(self.cache_dir)
+        except:
+            pass
+
+        os.makedirs(self.cache_dir)
+
+    def main(self):
+        interval_thread = IntervalThread(self)
+        interval_thread.start()
+
+        gtk.main()
+
+    def on_button_press_event(self, widget, event):
+        self.popup.popup(None, None, None, event.button, event.time)
+
+    def show_about_window(self, data):
+
+        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_UTILITY)
+        window.set_resizable(False)
+        window.set_title('Bijin Clock')
+        window.set_border_width(10)
+        window.set_modal(True)
+        window.set_property('skip-taskbar-hint', True)
+        window.set_transient_for(self.window)
+
+        vbox = gtk.VBox(False, 5)
+        window.add(vbox)
+
+        label = gtk.Label("http://adhisimon.or.id/bijinclock/")
+        vbox.add(label)
+
+        label = gtk.Label("(c) gua@adhisimon.or.id 2011")
+        vbox.add(label)
+
+        label = gtk.Label("")
+        vbox.add(label)
+
+        label = gtk.Label("Special thanks to:")
+        vbox.add(label)
+
+        label = gtk.Label("http://www.clockm.com/")
+        vbox.add(label)
+
+        label = gtk.Label("for providing great photos")
+        vbox.add(label)
+
+        window.show_all()
+
+    def url_to_show(self, hour = None, minute = None):
+        if not hour:
+            time_to_show = datetime.now()
+        else:
+            time_to_show = time(hour = hour, minute = minute)
+
+        return time_to_show.strftime(self.url_template)
+
+    def url_to_show_next(self):
+        now = datetime.now()
+        next_minute = timedelta(minutes = 1) + now
+
+        return self.url_to_show(next_minute.hour, next_minute.minute)
+
+    def replace_image(self, filename):
+        self.clock_image.set_from_file(filename)
+        os.remove(filename)
+
+    def do_show(self):
+        now = datetime.now()
+
+        if self.last_time and (
+            self.last_time.hour == now.hour
+            and self.last_time.minute == now.minute
+        ):
+            return
+
+        self.last_time = now
+
+        url = self.url_to_show()
+
+        filename = self.do_fetch(url)
+        gobject.idle_add(self.window.set_title, 'Bijin Clock')
+        gobject.idle_add(self.replace_image, filename)
+
+        self.do_fetch_next()
+
+    def sanitized_url(self, url):
+        sanitized_url = re.sub(r'''\W''', '.', url)
+        return sanitized_url
+
+    def do_fetch(self, url):
+        sanitized_url = self.sanitized_url(url)
+        cache_file = self.cache_dir + '/' + sanitized_url
+
+        if not os.path.exists(cache_file):
+            print datetime.now(), 'downloading %s' % url
+
+            myurlopener = MyUrlOpener()
+            myurlopener.retrieve(url, cache_file)
+            print datetime.now(), '%s has been downloaded' % url
+
+        return cache_file
+
+    def do_fetch_next(self):
+        url= self.url_to_show_next()
+        self.do_fetch(url)
+
+    def onMainDelete(self, widget, event, data = None):
+        return False
+
+    def onMainDestroy(self, widget, data = None):
+        gtk.main_quit()
+        print "Terminating..."
+        self.is_exit = True
+
+class IntervalThread(threading.Thread):
+    caller = None
+
+    def __init__(self, caller):
+        super(IntervalThread, self).__init__()
+        self.caller = caller
+
+    def run(self):
+        caller = self.caller
+
+        while not caller.is_exit:
+            caller.do_show()
+
+            now = datetime.now()
+            next_minute = timedelta(minutes = 1) + now
+            next_minute = next_minute.replace(second = 0, microsecond = 0)
+            sleep_time = next_minute - now
+
+            sleep(min(5, sleep_time.total_seconds()))
+
+if __name__ == '__main__':
+    bijin = Bijin()
+    bijin.main()
