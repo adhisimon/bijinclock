@@ -20,6 +20,11 @@ Currently it support photos from http://www.clockm.com/
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 install -m 744 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%{_bindir}/bijinclock
+
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinot <gua@adhisimon.or.id>
 - Initial version
