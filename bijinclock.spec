@@ -21,7 +21,7 @@ Require: python
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 install -m 744 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
-desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications build/share/applications/%{name}.desktop
+desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
