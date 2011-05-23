@@ -21,10 +21,8 @@ from datetime import time
 from datetime import timedelta
 from time import sleep
 
-class MyUrlOpener(FancyURLopener):
-    version = 'BijinClock http://adhisimon.or.id/bijinclock'
-
 class Bijin:
+    version = '0.9.0.201105240253'
     url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
     cache_dir = "~/.bijinclock/caches"
     is_fetch_next = True
@@ -104,6 +102,9 @@ class Bijin:
 
         vbox = gtk.VBox(False, 5)
         window.add(vbox)
+
+        label = gtk.Label("Bijin Clock v%s" % self.version)
+        vbox.add(label)
 
         label = gtk.Label("http://adhisimon.or.id/bijinclock/")
         vbox.add(label)
@@ -210,6 +211,9 @@ class IntervalThread(threading.Thread):
             sleep_time = next_minute - now
 
             sleep(min(5, sleep_time.total_seconds()))
+
+class MyUrlOpener(FancyURLopener):
+    version = 'BijinClock http://adhisimon.or.id/bijinclock'
 
 if __name__ == '__main__':
     bijin = Bijin()
