@@ -4,7 +4,7 @@ Release: 2
 Summary: Clock with beautiful women photo
 License: GPLv2
 URL: http://adhisimon.or.id/bijinclock/
-Source0: http://adhisimon.or.id/bijinclock/bijinclock-0.9.2.tar.gz
+Source0: http://adhisimon.or.id/bijinclock/bijinclock-0.9.2.tar.bz2
 %description:
 Bijin Clock is a clock program. It display photos of beautiful women
 every minute.
