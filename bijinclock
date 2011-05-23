@@ -22,7 +22,7 @@ from datetime import timedelta
 from time import sleep
 
 class Bijin:
-    version = '0.9.1.201105240253'
+    version = '0.9.2'
     url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
     cache_dir = "~/.bijinclock/caches"
     is_fetch_next = True
