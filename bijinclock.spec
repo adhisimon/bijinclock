@@ -14,7 +14,7 @@ every minute.
 Currently it support photos from http://www.clockm.com/
 
 %prep
-setup -q
+%setup -q
 
 %install
 install -m 777 bijinclock $RPM_BUILD_ROOT/%{_bindir}
