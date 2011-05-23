@@ -13,6 +13,8 @@ every minute.
 
 Currently it support photos from http://www.clockm.com/
 
+Require: python
+
 %prep
 %setup -q
 
