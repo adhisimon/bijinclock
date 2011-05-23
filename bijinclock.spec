@@ -15,6 +15,7 @@ Currently it support photos from http://www.clockm.com/
 
 %prep
 pwd
+ls
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinot <gua@adhisimon.or.id>
