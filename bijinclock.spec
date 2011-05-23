@@ -13,7 +13,7 @@ every minute.
 
 Currently it support photos from http://www.clockm.com/
 
-%build
+%install
 pwd
 ls
 
