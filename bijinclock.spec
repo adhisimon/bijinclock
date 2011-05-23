@@ -21,12 +21,14 @@ Require: python
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 install -m 744 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
+desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications build/share/applications/%{name}.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/bijinclock
+%{_datadir}/applications/adhisimon-%{name}.desktop
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinot <gua@adhisimon.or.id>
