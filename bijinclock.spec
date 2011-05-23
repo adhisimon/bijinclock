@@ -1,6 +1,7 @@
 Name: bijinclock
 Version: 0.9
 Release: 2
+BuildArch: noarch
 Summary: Clock with beautiful women photo
 License: GPLv2
 URL: http://adhisimon.or.id/bijinclock/
