@@ -13,9 +13,10 @@ every minute.
 
 Currently it support photos from http://www.clockm.com/
 
-%install
-pwd
-ls
+%prep
+%setup -q
+
+
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinot <gua@adhisimon.or.id>
