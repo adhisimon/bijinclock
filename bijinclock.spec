@@ -17,6 +17,7 @@ Currently it support photos from http://www.clockm.com/
 %setup -q
 
 %install
+rm -rf $RPM_BUILD_ROOT
 install -m 777 bijinclock $RPM_BUILD_ROOT/%{_bindir}
 
 %changelog
