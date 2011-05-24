@@ -24,7 +24,7 @@ rm -rf $RPM_BUILD_ROOT
 #install -m 755 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
 make DESTDIR=$RPM_BUILD_ROOT BINDIR=/usr/bin DATADIR=/usr/share install
 desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
-rm -f %{buildroot}%{_datadir}/applications %{name}.desktop
+rm -f %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
