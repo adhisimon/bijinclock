@@ -323,7 +323,7 @@ class IntervalThread(threading.Thread):
             next_minute = next_minute.replace(second = 0, microsecond = 0)
             sleep_time = next_minute - now
 
-            sleep(min(2, sleep_time.total_seconds()))
+            sleep(min(2, sleep_time.seconds + 1))
 
 class MyUrlOpener(FancyURLopener):
     version = 'BijinClock http://adhisimon.or.id/bijinclock'
