@@ -29,6 +29,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/bijinclock
+#%{_datadir}/applications/adhisimon-%{name}.desktop
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinoto <gua@adhisimon.or.id>
