@@ -5,10 +5,6 @@ BINDIR = /bin
 DATADIR = /usr/local/share
 
 install: bijinclock bijinclock.desktop README
-	echo $(DESTDIR)
-	echo $(BINDIR)
-	echo $(DATADIR)
-	echo ""
 	mkdir -p $(DESTDIR)/$(BINDIR)
 	install -m 755 -t $(DESTDIR)/$(BINDIR) bijinclock
 	mkdir -p $(DESTDIR)/$(DATADIR)/applications/
