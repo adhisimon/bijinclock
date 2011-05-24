@@ -35,12 +35,15 @@ class Bijin:
         self.init_cache_dir()
 
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title('loading...')
         self.window.set_size_request(160, 240)
 
         ui = """<ui>
             <popup name="Popup">
                 <menuitem name="About" action="About" />
+                <separator />
+                <menuitem name="Quit" action="Quit" />
             </popup>
         </ui>"""
 
@@ -52,6 +55,9 @@ class Bijin:
             [
                 ("About", None, "_About", None,
                     None, self.show_about_window
+                ),
+                ("Quit", None, "_Quit", None,
+                    None, lambda w: self.window.destroy()
                 ),
             ]
         )
