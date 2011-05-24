@@ -41,6 +41,7 @@ class Bijin:
 
         ui = """<ui>
             <popup name="Popup">
+                <menuitem name="Configure" action="Configure" />
                 <menuitem name="About" action="About" />
                 <separator />
                 <menuitem name="Quit" action="Quit" />
@@ -53,6 +54,9 @@ class Bijin:
         action_group = gtk.ActionGroup("Bijin Clock Action Group")
         action_group.add_actions(
             [
+                ("Configure", None, "_Configure", None,
+                    None, self.show_config_window
+                ),
                 ("About", None, "_About", None,
                     None, self.show_about_window
                 ),
@@ -189,6 +193,24 @@ class Bijin:
     def do_fetch_next(self):
         url= self.url_to_show_next()
         self.do_fetch(url)
+
+    def show_config_window(self, data = None):
+        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_UTILITY)
+        window.set_resizable(False)
+        window.set_title('Bijin Clock Configuration')
+        window.set_border_width(10)
+        window.set_modal(True)
+        window.set_property('skip-taskbar-hint', True)
+        window.set_transient_for(self.window)
+
+        vbox = gtk.VBox(False, 5)
+        window.add(vbox)
+
+        label = gtk.Label("Not implemented yet")
+        vbox.add(label)
+
+        window.show_all()
 
     def onMainDelete(self, widget, event, data = None):
         return False
