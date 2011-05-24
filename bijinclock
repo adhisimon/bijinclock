@@ -24,6 +24,24 @@ from time import sleep
 class Bijin:
     version = '0.9.4'
     url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
+    source_urls = {
+        0: {
+            'title': 'ClockM - small',
+            'url': 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg',
+            'width': 160,
+            'height': 240,
+        },
+        1: {
+            'title': 'ClockM - Big',
+            'url': 'http://www.clockm.com/tw/img/clk/hour/%H%M.jpg',
+            'width': 399,
+            'height': 600,
+        },
+    }
+
+    source_selected = 0
+    last_source_selected = source_selected
+
     cache_dir = "~/.bijinclock/caches"
     is_fetch_next = True
     window = None
@@ -40,15 +58,25 @@ class Bijin:
         self.window.set_size_request(160, 240)
         self.window.set_resizable(False)
 
+        ui_source_selector = """<ui><popup name="Popup">"""
+
+        for source_id in self.source_urls:
+            ui_source_selector += """<menuitem name="source%s" action="source%s" />""" % (source_id, source_id)
+
+        ui_source_selector += """</popup></ui>"""
+
         ui = """<ui>
             <popup name="Popup">
+                <separator />
                 <menuitem name="AlwaysOnTop" action="AlwaysOnTop" />
-                <menuitem name="Configure" action="Configure" />
+                <separator />
                 <menuitem name="About" action="About" />
                 <separator />
                 <menuitem name="Quit" action="Quit" />
             </popup>
         </ui>"""
+
+
 
         self.ui_manager = gtk.UIManager()
         accel_group = self.ui_manager.get_accel_group()
@@ -72,8 +100,9 @@ class Bijin:
                 (
                     # action name
                     'AlwaysOnTop',
-                    None,
                     # stock id
+                    None,
+                    # label
                     'Always on _top',
                     # accelerator
                     None,
@@ -87,7 +116,21 @@ class Bijin:
             ]
         )
 
+        select_source_actions = []
+        for source_id in self.source_urls:
+             select_source_actions += [(
+                "source%s" % source_id,
+                None,
+                self.source_urls[source_id]['title'],
+                None,
+                None,
+                source_id
+            )]
+
+        action_group.add_radio_actions(select_source_actions, self.source_selected, self.on_select_source)
+
         self.ui_manager.insert_action_group(action_group, 0)
+        self.ui_manager.add_ui_from_string(ui_source_selector)
         self.ui_manager.add_ui_from_string(ui)
         self.popup = self.ui_manager.get_widget("/Popup")
 
@@ -123,6 +166,9 @@ class Bijin:
 
     def toggle_always_on_top(self, action):
         self.window.set_keep_above(action.get_active())
+
+    def on_select_source(self, current, data):
+        self.source_selected = current.get_current_value()
 
     def show_about_window(self, data):
 
@@ -168,7 +214,8 @@ class Bijin:
         else:
             time_to_show = time(hour = hour, minute = minute)
 
-        return time_to_show.strftime(self.url_template)
+        #return time_to_show.strftime(self.url_template)
+        return time_to_show.strftime(self.source_urls[self.source_selected]['url'])
 
     def url_to_show_next(self):
         now = datetime.now()
@@ -177,13 +224,18 @@ class Bijin:
         return self.url_to_show(next_minute.hour, next_minute.minute)
 
     def replace_image(self, filename):
+        self.window.set_size_request(
+            self.source_urls[self.source_selected]['width'],
+            self.source_urls[self.source_selected]['height']
+        )
         self.clock_image.set_from_file(filename)
+        self.last_source_selected = self.source_selected
         os.remove(filename)
 
     def do_show(self):
         now = datetime.now()
 
-        if self.last_time and (
+        if (self.last_source_selected == self.source_selected) and self.last_time and (
             self.last_time.hour == now.hour
             and self.last_time.minute == now.minute
         ):
