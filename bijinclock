@@ -110,6 +110,7 @@ class Bijin:
         window.set_modal(True)
         window.set_property('skip-taskbar-hint', True)
         window.set_transient_for(self.window)
+        window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
         vbox = gtk.VBox(False, 5)
         window.add(vbox)
@@ -204,6 +205,7 @@ class Bijin:
         window.set_modal(True)
         window.set_property('skip-taskbar-hint', True)
         window.set_transient_for(self.window)
+        window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
         vbox = gtk.VBox(False, 5)
         window.add(vbox)
