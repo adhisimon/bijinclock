@@ -1,0 +1,28 @@
+Bijin Clock
+-----------
+https://github.com/adhisimon/bijinclock
+
+Application to show photographed of beautiful women showing curent time.
+
+Photos source:
+* http://www.clockm.com/
+
+Platform:
+* RPM based linux (tested on Linux Fedora 14 and 15-Beta)
+
+ROADMAP
+-------
+Multiple photos source, including:
+* http://bijint.com
+* http://www.arthur.com.tw
+
+Multi platform:
+* MS Windows
+
+CREDIT
+------
+Special thanks to ClockM for providing beautiful photos.
+
+LICENSE
+-------
+Licensed under GPLv2
