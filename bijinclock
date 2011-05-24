@@ -42,6 +42,7 @@ class Bijin:
 
         ui = """<ui>
             <popup name="Popup">
+                <menuitem name="AlwaysOnTop" action="AlwaysOnTop" />
                 <menuitem name="Configure" action="Configure" />
                 <menuitem name="About" action="About" />
                 <separator />
@@ -66,6 +67,26 @@ class Bijin:
                 ),
             ]
         )
+        action_group.add_toggle_actions(
+            [
+                (
+                    # action name
+                    'AlwaysOnTop',
+                    None,
+                    # stock id
+                    'Always on _top',
+                    # accelerator
+                    None,
+                    # tooltip
+                    None,
+                    # callback
+                    self.toggle_always_on_top,
+                    # active flag
+                    False
+                )
+            ]
+        )
+
         self.ui_manager.insert_action_group(action_group, 0)
         self.ui_manager.add_ui_from_string(ui)
         self.popup = self.ui_manager.get_widget("/Popup")
@@ -99,6 +120,9 @@ class Bijin:
 
     def on_button_press_event(self, widget, event):
         self.popup.popup(None, None, None, event.button, event.time)
+
+    def toggle_always_on_top(self, action):
+        self.window.set_keep_above(action.get_active())
 
     def show_about_window(self, data):
 
