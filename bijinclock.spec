@@ -23,14 +23,14 @@ rm -rf $RPM_BUILD_ROOT
 #mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 #install -m 755 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
 #desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
-make DESTDIR=$RPM_BUILD_ROOT BINDIR=/usr/bin install
+make DESTDIR=$RPM_BUILD_ROOT BINDIR=/usr/bin DATADIR=/usr/share install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/bijinclock
-#%{_datadir}/applications/adhisimon-%{name}.desktop
+%{_datadir}/applications/adhisimon-%{name}.desktop
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinoto <gua@adhisimon.or.id>

@@ -2,18 +2,20 @@ NAME = bijinclock
 VERSION = 0.9.3
 DESTDIR = /usr/local
 BINDIR = /bin
+DATADIR = /usr/local/share
+
 install: bijinclock bijinclock.desktop README
 	mkdir -p $(DESTDIR)/$(BINDIR)
 	install -m 755 -t $(DESTDIR)/$(BINDIR) bijinclock
 	mkdir -p $(DESTDIR)/share/applications/
-	install -m 644 bijinclock.desktop $(DESTDIR)/share/applications/
-	mkdir -p $(DESTDIR)/share/doc/$(NAME)-$(VERSION)
+	install -m 644 bijinclock.desktop $(DESTDIR)/$(DATADIR)/applications/
+	mkdir -p $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 	install -m 644 README $(DESTDIR)/share/doc/$(NAME)-$(VERSION)
 
 uninstall:
 	rm -f $(DESTDIR)/$(BINDIR)/bijinclock
-	rm -f $(DESTDIR)/share/applications/bijinclock.desktop
-	rm -rf $(DESTDIR)/share/doc/$(NAME)-$(VERSION)
+	rm -f $(DESTDIR)/$(DATADIR)/applications/bijinclock.desktop
+	rm -rf $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 
 rpm: tar
 	rpmbuild -ta $(NAME)-$(VERSION).tar.bz2
