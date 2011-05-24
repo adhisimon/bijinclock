@@ -1,6 +1,6 @@
 Name: bijinclock
 Version: 0.9.3
-Release: 1
+Release: 2
 BuildArch: noarch
 Group: Applications/Internet
 Summary: Clock with beautiful women photo
@@ -19,9 +19,10 @@ Require: python
 %setup -q
 
 %install
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}
-install -m 755 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
-desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
+#mkdir -p $RPM_BUILD_ROOT/%{_bindir}
+#install -m 755 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
+#desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
+make 'DESTDIR=$RPM_BUILD_ROOT' install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
