@@ -13,8 +13,8 @@ every minute.
 
 Currently it support photos from http://www.clockm.com/
 
-Require: python
-Require: pygtk2
+BuildRequires: desktop-file-utils
+Requires: python pygtk2 coreutils make
 
 %prep
 %setup -q
