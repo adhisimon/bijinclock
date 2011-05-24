@@ -1,12 +1,12 @@
 Name: bijinclock
-Version: 0.9.2
+Version: 0.9.3
 Release: 1
 BuildArch: noarch
 Group: Applications/Internet
 Summary: Clock with beautiful women photo
 License: GPLv2
 URL: http://adhisimon.or.id/bijinclock/
-Source0: http://adhisimon.or.id/bijinclock/bijinclock-0.9.2.tar.bz2
+Source0: http://adhisimon.or.id/bijinclock/bijinclock-0.9.3.tar.bz2
 %description
 Bijin Clock is a clock program. It display photos of beautiful women
 every minute.
@@ -31,5 +31,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/adhisimon-%{name}.desktop
 
 %changelog
-* Tue May 24 2011 Adhidarma Hadiwinot <gua@adhisimon.or.id>
+* Tue May 24 2011 Adhidarma Hadiwinoto <gua@adhisimon.or.id>
 - Initial version
