@@ -28,8 +28,8 @@ make DESTDIR=$RPM_BUILD_ROOT install
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%{_bindir}/bijinclock
-%{_datadir}/applications/adhisimon-%{name}.desktop
+%bin/bijinclock
+%share/applications/adhisimon-%{name}.desktop
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinoto <gua@adhisimon.or.id>
