@@ -38,6 +38,7 @@ class Bijin:
         self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title('loading...')
         self.window.set_size_request(160, 240)
+        self.window.set_resizable(False)
 
         ui = """<ui>
             <popup name="Popup">
