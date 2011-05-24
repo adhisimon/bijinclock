@@ -118,7 +118,7 @@ class Bijin:
         label = gtk.Label("Bijin Clock v%s" % self.version)
         vbox.add(label)
 
-        label = gtk.Label("http://adhisimon.or.id/bijinclock/")
+        label = gtk.Label("https://github.com/adhisimon/bijinclock")
         vbox.add(label)
 
         label = gtk.Label("(c) gua@adhisimon.or.id 2011")
