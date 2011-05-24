@@ -14,6 +14,7 @@ every minute.
 Currently it support photos from http://www.clockm.com/
 
 Require: python
+Require: pygtk2
 
 %prep
 %setup -q
