@@ -19,6 +19,7 @@ Require: python
 %setup -q
 
 %install
+rm -rf $RPM_BUILD_ROOT
 #mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 #install -m 755 bijinclock $RPM_BUILD_ROOT/%{_bindir}/bijinclock
 #desktop-file-install --vendor="adhisimon" --dir=%{buildroot}%{_datadir}/applications %{name}.desktop
