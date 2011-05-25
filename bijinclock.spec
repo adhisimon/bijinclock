@@ -7,8 +7,8 @@ Summary: Clock with beautiful women photo
 License: GPLv2
 URL: https://github.com/adhisimon/bijinclock
 Source0: https://github.com/downloads/adhisimon/bijinclock/bijinclock-%{version}.tar.bz2
-BuildRequires: desktop-file-utils
-Requires: python pygtk2 coreutils make
+BuildRequires: desktop-file-utils make coreutils
+Requires: python pygtk2
 
 %description
 Bijin Clock is a clock program. It display photos of beautiful women
