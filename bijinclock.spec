@@ -1,5 +1,5 @@
 Name: bijinclock
-Version: 0.9.8
+Version: 0.9.8.1
 Release: 1
 BuildArch: noarch
 Group: Applications/Internet
