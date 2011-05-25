@@ -72,7 +72,7 @@ class Bijin:
             'url': 'http://www.bijint.com/assets/pict/hk/240x320/%H%M.jpg',
             'width': 240,
             'height': 320,
-            'http-referer': 'http://www.bijint.com/hj/',
+            'http-referer': 'http://www.bijint.com/hk/',
         },
         7: {
             'title': 'Gal Tokei',
