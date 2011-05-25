@@ -25,7 +25,7 @@ rpm: tar
 
 tar: $(NAME)-$(VERSION).tar.bz2
 
-$(NAME)-$(VERSION).tar.bz2: bijinclock.py bijinclock.spec bijinclock.desktop README
+$(NAME)-$(VERSION).tar.bz2: bijinclock.py bijinclock.spec bijinclock.desktop README INSTALL AUTHOR COPYING
 	git archive --prefix $(NAME)-$(VERSION)/ --format=tar HEAD| bzip2 -c > $(NAME)-$(VERSION).tar.bz2
 
 clean:
