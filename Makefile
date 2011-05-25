@@ -1,5 +1,5 @@
 NAME = bijinclock
-VERSION = 0.9.7
+VERSION = 0.9.8
 DESTDIR = /
 BINDIR = /usr/local/bin
 DATADIR = /usr/local/share

@@ -1,6 +1,6 @@
 Name: bijinclock
-Version: 0.9.7
-Release: 0
+Version: 0.9.8
+Release: 1
 BuildArch: noarch
 Group: Applications/Internet
 Summary: Clock with beautiful women photo
