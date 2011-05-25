@@ -54,6 +54,7 @@ class Bijin:
     clock_image = None
     is_exit = False
     last_time = None
+    popup = None
 
     def __init__(self):
         self.init_cache_dir()
@@ -64,6 +65,21 @@ class Bijin:
         self.window.set_size_request(160, 240)
         self.window.set_resizable(False)
 
+        self.init_menu()
+
+        event_box = gtk.EventBox()
+        self.window.add(event_box)
+
+        self.clock_image = gtk.Image()
+        event_box.add(self.clock_image)
+
+        self.window.show_all()
+
+        event_box.connect("button-press-event", self.on_button_press_event)
+        self.window.connect("delete_event", self.onMainDelete)
+        self.window.connect("destroy", self.onMainDestroy)
+
+    def init_menu(self):
         ui_source_selector = """<ui><popup name="Popup">"""
 
         for source_id in self.source_urls:
@@ -137,18 +153,6 @@ class Bijin:
         self.ui_manager.add_ui_from_string(ui_source_selector)
         self.ui_manager.add_ui_from_string(ui)
         self.popup = self.ui_manager.get_widget("/Popup")
-
-        event_box = gtk.EventBox()
-        self.window.add(event_box)
-
-        self.clock_image = gtk.Image()
-        event_box.add(self.clock_image)
-
-        self.window.show_all()
-
-        event_box.connect("button-press-event", self.on_button_press_event)
-        self.window.connect("delete_event", self.onMainDelete)
-        self.window.connect("destroy", self.onMainDestroy)
 
     def init_cache_dir(self):
         self.cache_dir = os.path.expanduser(self.cache_dir)
