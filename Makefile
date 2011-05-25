@@ -1,24 +1,24 @@
 NAME = bijinclock
 VERSION = 0.9.6
-DESTDIR = /usr/local
-BINDIR = /bin
+DESTDIR = /
+BINDIR = /usr/local/bin
 DATADIR = /usr/local/share
 
 install: bijinclock bijinclock.desktop README
 	mkdir -p $(DESTDIR)/$(BINDIR)
 	install -m 755 -t $(DESTDIR)/$(BINDIR) bijinclock
-	mkdir -p $(DATADIR)/applications/
-	install -m 644 bijinclock.desktop $(DATADIR)/applications/
-	mkdir -p $(DATADIR)/doc/$(NAME)-$(VERSION)
-	install -m 644 README $(DATADIR)/doc/$(NAME)-$(VERSION)
-	install -m 644 AUTHOR $(DATADIR)/doc/$(NAME)-$(VERSION)
-	install -m 644 COPYING $(DATADIR)/doc/$(NAME)-$(VERSION)
-	install -m 644 INSTALL $(DATADIR)/doc/$(NAME)-$(VERSION)
+	mkdir -p $(DESTDIR)/$(DATADIR)/applications/
+	install -m 644 bijinclock.desktop $(DESTDIR)/$(DATADIR)/applications/
+	mkdir -p $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 README $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 AUTHOR $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 COPYING $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 INSTALL $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 
 uninstall:
 	rm -f $(DESTDIR)/$(BINDIR)/bijinclock
-	rm -f $(DATADIR)/applications/bijinclock.desktop
-	rm -rf $(DATADIR)/doc/$(NAME)-$(VERSION)
+	rm -f $(DESTDIR)/$(DATADIR)/applications/bijinclock.desktop
+	rm -rf $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 
 rpm: tar
 	rpmbuild -ta $(NAME)-$(VERSION).tar.bz2
