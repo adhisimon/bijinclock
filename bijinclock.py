@@ -131,6 +131,7 @@ class Bijin:
         self.window.set_size_request(160, 240)
         self.window.set_resizable(False)
 
+        self.init_icon()
         self.init_config()
         self.init_menu()
 
@@ -145,6 +146,14 @@ class Bijin:
         event_box.connect("button-press-event", self.on_button_press_event)
         self.window.connect("delete_event", self.on_main_delete)
         self.window.connect("destroy", self.on_main_destroy)
+
+    def init_icon(self):
+        icon_file = "/usr/share/icons/adhisimon-bijinclock.png"
+        if os.path.isfile(icon_file):
+            try:
+                self.window.set_icon_from_file(icon_file)
+            except:
+                pass
 
     def init_config(self):
         self.config = ConfigParser.SafeConfigParser()
