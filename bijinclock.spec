@@ -1,11 +1,11 @@
 Name: bijinclock
 Version: 0.9.6
-Release: 1
+Release: 2
 BuildArch: noarch
 Group: Applications/Internet
 Summary: Clock with beautiful women photo
 License: GPLv2
-URL: https://github.com/adhisimon/bijinclock
+URL: https://github.com/adhisimon/bijinclock/wiki
 Source0: https://github.com/downloads/adhisimon/bijinclock/bijinclock-%{version}.tar.bz2
 BuildRequires: desktop-file-utils make coreutils
 Requires: python pygtk2
