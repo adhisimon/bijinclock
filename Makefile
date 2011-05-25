@@ -14,6 +14,7 @@ install:
 	install -m 644 AUTHOR $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 	install -m 644 COPYING $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 	install -m 644 INSTALL $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	mkdir -p $(DESTDIR)/$(DATADIR)/icons
 	install -m 644 bijinclock.png $(DESTDIR)/$(DATADIR)/icons/adhisimon-bijinclock.png
 
 uninstall:
