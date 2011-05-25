@@ -15,10 +15,10 @@ import shutil
 import sys
 import urllib
 from urllib import FancyURLopener
-
 from datetime import datetime
 from datetime import time
 from datetime import timedelta
+import ConfigParser
 from time import sleep
 
 class Bijin:
@@ -47,8 +47,11 @@ class Bijin:
 
     source_selected = 0
     last_source_selected = source_selected
+    cache_dir = os.path.expanduser("~/.bijinclock/caches")
+    config_file = os.path.expanduser("~/.bijinclock/bijinclock.ini")
+    config = None
 
-    cache_dir = "~/.bijinclock/caches"
+    is_always_on_top = False
     is_fetch_next = True
     window = None
     clock_image = None
@@ -65,6 +68,7 @@ class Bijin:
         self.window.set_size_request(160, 240)
         self.window.set_resizable(False)
 
+        self.init_config()
         self.init_menu()
 
         event_box = gtk.EventBox()
@@ -78,6 +82,26 @@ class Bijin:
         event_box.connect("button-press-event", self.on_button_press_event)
         self.window.connect("delete_event", self.on_main_delete)
         self.window.connect("destroy", self.on_main_destroy)
+
+    def init_config(self):
+        self.config = ConfigParser.SafeConfigParser()
+        self.config.read(self.config_file)
+
+        try:
+            self.config.add_section("Main")
+        except:
+            pass
+
+        try:
+            self.source_selected = self.config.getint("Main", "selected_source")
+        except:
+            pass
+
+        try:
+            self.is_always_on_top = self.config.getboolean("Main", "always_on_top")
+            self.window.set_keep_above(self.is_always_on_top)
+        except:
+            pass
 
     def init_menu(self):
         ui_source_selector = """<ui><popup name="Popup">"""
@@ -131,7 +155,7 @@ class Bijin:
                     # callback
                     self.toggle_always_on_top,
                     # active flag
-                    False
+                    self.is_always_on_top
                 )
             ]
         )
@@ -155,7 +179,6 @@ class Bijin:
         self.popup = self.ui_manager.get_widget("/Popup")
 
     def init_cache_dir(self):
-        self.cache_dir = os.path.expanduser(self.cache_dir)
         try:
             shutil.rmtree(self.cache_dir)
         except:
@@ -173,10 +196,19 @@ class Bijin:
         self.popup.popup(None, None, None, event.button, event.time)
 
     def toggle_always_on_top(self, action):
+        self.is_always_on_top = action.get_active()
         self.window.set_keep_above(action.get_active())
+        self.config.set("Main", "always_on_top", str(action.get_active()))
+        self.config_save()
+
+    def config_save(self):
+        with open(self.config_file, 'wb') as config_file:
+            self.config.write(config_file)
 
     def on_select_source(self, current, data):
         self.source_selected = current.get_current_value()
+        self.config.set("Main", "selected_source", str(self.source_selected))
+        self.config_save()
 
     def show_about_window(self, data):
 
