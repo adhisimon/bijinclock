@@ -1,5 +1,5 @@
 NAME = bijinclock
-VERSION = 0.9.5
+VERSION = 0.9.6
 DESTDIR = /usr/local
 BINDIR = /bin
 DATADIR = /usr/local/share
@@ -11,6 +11,9 @@ install: bijinclock bijinclock.desktop README
 	install -m 644 bijinclock.desktop $(DESTDIR)/$(DATADIR)/applications/
 	mkdir -p $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 	install -m 644 README $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 AUTHOR $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 COPYING $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
+	install -m 644 INSTALL $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 
 uninstall:
 	rm -f $(DESTDIR)/$(BINDIR)/bijinclock

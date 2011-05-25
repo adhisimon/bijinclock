@@ -1,5 +1,5 @@
 Name: bijinclock
-Version: 0.9.5
+Version: 0.9.6
 Release: 1
 BuildArch: noarch
 Group: Applications/Internet
@@ -33,7 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %{_bindir}/bijinclock
 %{_datadir}/applications/adhisimon-%{name}.desktop
-%doc README
+%doc AUTHOR COPYING INSTALL README
 
 %changelog
 * Tue May 24 2011 Adhidarma Hadiwinoto <gua@adhisimon.or.id>
