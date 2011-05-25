@@ -8,8 +8,12 @@ Developed in Python using PyGTK library.
 
 Photos source:
 * http://www.clockm.com/ (Taipei girls)
+* http://arthurm.com/
+* http://bijint.com/
 
-We'are not affilated with photos source.
+and many more.
+
+Note: We'are not affilated with photos source.
 
 For more information, please visit the wikipage on:
 
@@ -32,16 +36,12 @@ Screenshot can be viewed at wikipage:
 
 ROADMAP
 -------
-Multiple photos source, including:
-* http://bijint.com
-* http://www.arthur.com.tw
-
 Multi platform:
 * MS Windows
 
 CREDIT
 ------
-Special thanks to ClockM for providing beautiful photos.
+Special thanks to photos provider for providing beautiful photos.
 
 DOWNLOAD
 ---------------
@@ -54,3 +54,7 @@ https://github.com/adhisimon/bijinclock
 LICENSE
 -------
 Licensed under GPLv2
+
+CONTACT
+-------
+You can contact me by email: gua@adhisimon.or.id
