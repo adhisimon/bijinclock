@@ -2,7 +2,7 @@ NAME = bijinclock
 VERSION = 1.0.0
 DESTDIR = /
 BINDIR = /usr/local/bin
-DATADIR = /usr/share
+DATADIR = /usr/local/share
 
 install:
 	mkdir -p $(DESTDIR)/$(BINDIR)
@@ -15,13 +15,13 @@ install:
 	install -m 644 COPYING $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 	install -m 644 INSTALL $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
 	mkdir -p $(DESTDIR)/$(DATADIR)/icons
-	install -m 644 bijinclock.png $(DESTDIR)/$(DATADIR)/icons/adhisimon-bijinclock.png
+	install -m 644 bijinclock.png $(DESTDIR)/$(DATADIR)/icons/bijinclock.png
 
 uninstall:
 	rm -f $(DESTDIR)/$(BINDIR)/bijinclock
 	rm -f $(DESTDIR)/$(DATADIR)/applications/bijinclock.desktop
 	rm -rf $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
-	rm -f $(DESTDIR)/$(DATADIR)/icons/adhisimon-bijinclock.png
+	rm -f $(DESTDIR)/$(DATADIR)/icons/bijinclock.png
 
 rpm: tar
 	rpmbuild -ta $(NAME)-$(VERSION).tar.bz2
