@@ -4,11 +4,20 @@ https://github.com/adhisimon/bijinclock
 
 Application to show photographed of beautiful women showing curent time.
 
+Developed in Python using PyGTK library.
+
 Photos source:
 * http://www.clockm.com/
 
+We'are not affilated with photos source.
+
 Platform:
-* RPM based linux (tested on Linux Fedora 14 and 15-Beta)
+* RPM tested on Linux Fedora 13, 14 and 15)
+* Should be running on other linux distribution with Python2x
+
+INSTALL
+-------
+See INSTALL file
 
 SCREENSHOT
 ----------
