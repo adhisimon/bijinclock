@@ -2,6 +2,6 @@
 Name=Bijin Clock
 Type=Application
 Comment=Clock with Beautiful Women
-Exec=/usr/bin/bijinclock
+Exec=bijinclock
 Icon=/usr/share/icons/adhisimon-bijinclock.png
 Categories=GTK;GNOME;Network;

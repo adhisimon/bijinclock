@@ -2,7 +2,7 @@ NAME = bijinclock
 VERSION = 1.0.0
 DESTDIR = /
 BINDIR = /usr/local/bin
-DATADIR = /usr/local/share
+DATADIR = /usr/share
 
 install:
 	mkdir -p $(DESTDIR)/$(BINDIR)
