@@ -33,6 +33,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %{_bindir}/bijinclock
 %{_datadir}/applications/adhisimon-%{name}.desktop
+%{_datadir}/icons/adhisimon-bijinclock.png
 %doc AUTHOR COPYING INSTALL README
 
 %changelog
