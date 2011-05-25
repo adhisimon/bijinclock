@@ -12,6 +12,7 @@ gobject.threads_init()
 import os
 import re
 import shutil
+import subprocess
 import sys
 import urllib
 from urllib import FancyURLopener
@@ -22,7 +23,7 @@ import ConfigParser
 from time import sleep
 
 class Bijin:
-    version = '0.9.8.2'
+    version = '0.9.9'
     url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
     source_urls = {
         0: {
@@ -176,6 +177,7 @@ class Bijin:
                 <menuitem name="AlwaysOnTop" action="AlwaysOnTop" />
                 <separator />
                 <menuitem name="About" action="About" />
+                <menuitem name="Homepage" action="Homepage" />
                 <separator />
                 <menuitem name="Quit" action="Quit" />
             </popup>
@@ -192,6 +194,9 @@ class Bijin:
                 ),
                 ("About", None, "_About", None,
                     None, self.show_about_window
+                ),
+                ("Homepage", None, "Visit _Homepage", None,
+                    None, self.open_homepage
                 ),
                 ("Quit", None, "_Quit", None,
                     None, lambda w: self.window.destroy()
@@ -280,32 +285,34 @@ class Bijin:
         window.set_property('skip-taskbar-hint', True)
         window.set_transient_for(self.window)
         window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        window.modify_bg(gtk.STATE_NORMAL, gtk.gdk.Color('#fff'))
 
-        vbox = gtk.VBox(False, 5)
-        window.add(vbox)
+        textview = gtk.TextView()
+        textview.set_editable(False)
+        textview.set_cursor_visible(False)
+        textbuffer = textview.get_buffer()
+        textbuffer.set_text(
+"""Bijin Clock v%s
+https://github.com/adhisimon/bijinclock/wiki
+(c) gua@adhisimon.or.id 2011
 
-        label = gtk.Label("Bijin Clock v%s" % self.version)
-        vbox.add(label)
+Special thanks to:
+* ClockM (http://www.clockm.com/)
+* Arthur (http://www.arthur.com.tw/)
+* Bijin Tokei (http://bijint.com/)
+* Lovely Time (http://lovelytime.com.tw/)
+        """ % self.version
+        )
 
-        label = gtk.Label("https://github.com/adhisimon/bijinclock")
-        vbox.add(label)
-
-        label = gtk.Label("(c) gua@adhisimon.or.id 2011")
-        vbox.add(label)
-
-        label = gtk.Label("")
-        vbox.add(label)
-
-        label = gtk.Label("Special thanks to:")
-        vbox.add(label)
-
-        label = gtk.Label("http://www.clockm.com/")
-        vbox.add(label)
-
-        label = gtk.Label("for providing great photos")
-        vbox.add(label)
+        window.add(textview)
 
         window.show_all()
+
+    def open_homepage(self, data = None):
+        try:
+            os.startfile("https://github.com/adhisimon/bijinclock/wiki")
+        except AttributeError:
+            subprocess.call(['xdg-open', 'https://github.com/adhisimon/bijinclock/wiki'])
 
     def url_to_show(self, hour = None, minute = None):
         if not hour:
