@@ -22,7 +22,6 @@ uninstall:
 
 rpm: tar
 	rpmbuild -ta $(NAME)-$(VERSION).tar.bz2
-	echo $(TEST)
 
 tar: $(NAME)-$(VERSION).tar.bz2
 
