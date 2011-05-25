@@ -120,6 +120,9 @@ class Bijin:
     popup = None
 
     def __init__(self):
+        if os.name == 'nt':
+            gtk.rc_parse("gtkrc")
+
         self.init_cache_dir()
 
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)

@@ -4,7 +4,7 @@ DESTDIR = /
 BINDIR = /usr/local/bin
 DATADIR = /usr/local/share
 
-install: bijinclock.py bijinclock.desktop README
+install:
 	mkdir -p $(DESTDIR)/$(BINDIR)
 	install -m 755 bijinclock.py $(DESTDIR)/$(BINDIR)/bijinclock
 	mkdir -p $(DESTDIR)/$(DATADIR)/applications/
