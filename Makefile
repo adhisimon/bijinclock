@@ -4,9 +4,9 @@ DESTDIR = /
 BINDIR = /usr/local/bin
 DATADIR = /usr/local/share
 
-install: bijinclock bijinclock.desktop README
+install: bijinclock.py bijinclock.desktop README
 	mkdir -p $(DESTDIR)/$(BINDIR)
-	install -m 755 -t $(DESTDIR)/$(BINDIR) bijinclock
+	install -m 755 bijinclock.py $(DESTDIR)/$(BINDIR)/bijinclock
 	mkdir -p $(DESTDIR)/$(DATADIR)/applications/
 	install -m 644 bijinclock.desktop $(DESTDIR)/$(DATADIR)/applications/
 	mkdir -p $(DESTDIR)/$(DATADIR)/doc/$(NAME)-$(VERSION)
@@ -25,7 +25,7 @@ rpm: tar
 
 tar: $(NAME)-$(VERSION).tar.bz2
 
-$(NAME)-$(VERSION).tar.bz2: bijinclock bijinclock.spec bijinclock.desktop README
+$(NAME)-$(VERSION).tar.bz2: bijinclock.py bijinclock.spec bijinclock.desktop README
 	git archive --prefix $(NAME)-$(VERSION)/ --format=tar HEAD| bzip2 -c > $(NAME)-$(VERSION).tar.bz2
 
 clean:
