@@ -76,8 +76,8 @@ class Bijin:
         self.window.show_all()
 
         event_box.connect("button-press-event", self.on_button_press_event)
-        self.window.connect("delete_event", self.onMainDelete)
-        self.window.connect("destroy", self.onMainDestroy)
+        self.window.connect("delete_event", self.on_main_delete)
+        self.window.connect("destroy", self.on_main_destroy)
 
     def init_menu(self):
         ui_source_selector = """<ui><popup name="Popup">"""
@@ -306,10 +306,10 @@ class Bijin:
 
         window.show_all()
 
-    def onMainDelete(self, widget, event, data = None):
+    def on_main_delete(self, widget, event, data = None):
         return False
 
-    def onMainDestroy(self, widget, data = None):
+    def on_main_destroy(self, widget, data = None):
         gtk.main_quit()
         print "Terminating..."
         self.is_exit = True
