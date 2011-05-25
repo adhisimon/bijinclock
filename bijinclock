@@ -22,7 +22,7 @@ from datetime import timedelta
 from time import sleep
 
 class Bijin:
-    version = '0.9.6'
+    version = '0.9.7'
     url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
     source_urls = {
         0: {
@@ -81,8 +81,6 @@ class Bijin:
                 <menuitem name="Quit" action="Quit" />
             </popup>
         </ui>"""
-
-
 
         self.ui_manager = gtk.UIManager()
         accel_group = self.ui_manager.get_accel_group()
@@ -247,15 +245,16 @@ class Bijin:
         ):
             return
 
-        self.last_time = now
 
         url = self.url_to_show()
-
         filename = self.do_fetch(url)
-        gobject.idle_add(self.window.set_title, 'Bijin Clock')
-        gobject.idle_add(self.replace_image, filename)
+        if filename:
+            self.last_time = now
 
-        self.do_fetch_next()
+            gobject.idle_add(self.window.set_title, 'Bijin Clock')
+            gobject.idle_add(self.replace_image, filename)
+
+            self.do_fetch_next()
 
     def sanitized_url(self, url):
         sanitized_url = re.sub(r'''\W''', '.', url)
@@ -266,11 +265,17 @@ class Bijin:
         cache_file = self.cache_dir + '/' + sanitized_url
 
         if not os.path.exists(cache_file):
-            print datetime.now(), 'downloading %s' % url
+            #print datetime.now(), 'downloading %s' % url
 
             myurlopener = MyUrlOpener()
-            myurlopener.retrieve(url, cache_file)
-            print datetime.now(), '%s has been downloaded' % url
+
+            try:
+                myurlopener.retrieve(url, cache_file)
+            except:
+                print "Error downloading %s" % url
+                return False
+
+            #print datetime.now(), '%s has been downloaded' % url
 
         return cache_file
 
