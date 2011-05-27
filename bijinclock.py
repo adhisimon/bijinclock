@@ -148,10 +148,14 @@ class Bijin:
         self.window.connect("destroy", self.on_main_destroy)
 
     def init_icon(self):
-        icon_file = "/usr/share/icons/adhisimon-bijinclock.png"
-        if os.path.isfile(icon_file):
+        if os.path.isfile("/usr/share/icons/bijinclock.png"):
             try:
-                self.window.set_icon_from_file(icon_file)
+                self.window.set_icon_from_file("/usr/share/icons/bijinclock.png")
+            except:
+                pass
+        elif os.path.isfile("/usr/local/share/icons/bijinclock.png"):
+            try:
+                self.window.set_icon_from_file("/usr/share/icons/bijinclock.png")
             except:
                 pass
 
