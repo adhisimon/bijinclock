@@ -20,9 +20,10 @@ For more information, please visit the wikipage on:
   https://github.com/adhisimon/bijinclock/wiki
 
 
-Platform:
+Supported Platform:
 * RPM tested on Linux Fedora 13, 14 and 15)
 * Should be running on other linux distribution with Python2x
+* MS Windows (tested on MS Windows XP and MS Windows 7)
 
 INSTALL
 -------
@@ -33,11 +34,6 @@ SCREENSHOT
 Screenshot can be viewed at wikipage:
 
   https://github.com/adhisimon/bijinclock/wiki
-
-ROADMAP
--------
-Multi platform:
-* MS Windows
 
 CREDIT
 ------
