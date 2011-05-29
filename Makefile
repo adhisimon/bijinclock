@@ -34,5 +34,20 @@ $(NAME)-$(VERSION).tar.bz2: bijinclock.py bijinclock.spec bijinclock.desktop REA
 signedrpm: tar
 	rpmbuild --sign -ta $(NAME)-$(VERSION).tar.bz2
 
+upload2repo: signedrpm
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/13/i386/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/13/x86_64/
+	scp ~/rpmbuild/SRPMS/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/13/SRPMS/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/14/i386/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/14/x86_64/
+	scp ~/rpmbuild/SRPMS/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/14/SRPMS/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/15/i386/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/15/x86_64/
+	scp ~/rpmbuild/SRPMS/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/fedora/15/SRPMS/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/rhel/5/i386/
+	scp ~/rpmbuild/RPMS/noarch/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/rhel/5/x86_64/
+	scp ~/rpmbuild/SRPMS/$(NAME)-$(VERSION)*.rpm websimon@axis.email-pribadi.com:adhisimonrepo/rhel/5/SRPMS/
+
+
 clean:
 	rm -f $(NAME)-*.tar.bz2
