@@ -7,7 +7,7 @@ exe = Executable(
 )
 setup(
     name = "bijinclock",
-    version = "0.9.9",
+    version = "1.1.0",
     description = "Bijin Clock",
     executables = [exe],
     options = {

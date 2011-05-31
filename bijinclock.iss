@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Bijin Clock"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "adhisimon"
 #define MyAppURL "https://github.com/adhisimon/bijinclock/wiki"
 #define MyAppExeName "bijinclock.exe"

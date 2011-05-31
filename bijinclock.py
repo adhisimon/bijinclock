@@ -23,7 +23,7 @@ import ConfigParser
 from time import sleep
 
 class Bijin:
-    version = '1.0.0'
+    version = '1.1.0.dev'
     url_template = 'http://www.clockm.com/tw/widget/img/clk/hour/%H%M.jpg'
     source_urls = {
         0: {
