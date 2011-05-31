@@ -118,6 +118,7 @@ class Bijin:
     is_exit = False
     last_time = None
     popup = None
+    message_label = None
 
     def __init__(self):
         if os.name == 'nt':
@@ -128,15 +129,21 @@ class Bijin:
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title('loading...')
-        self.window.set_size_request(160, 240)
+        #self.window.set_default_size(160, 240)
         self.window.set_resizable(False)
 
         self.init_icon()
         self.init_config()
         self.init_menu()
 
+        vbox = gtk.VBox()
+        self.window.add(vbox)
+
         event_box = gtk.EventBox()
-        self.window.add(event_box)
+        vbox.add(event_box)
+
+        self.message_label = gtk.Label('  please wait while loading...  ')
+        vbox.add(self.message_label)
 
         self.clock_image = gtk.Image()
         event_box.add(self.clock_image)
@@ -288,6 +295,8 @@ class Bijin:
     def on_select_source(self, current, data):
         self.source_selected = current.get_current_value()
         self.config.set("Main", "selected_source", str(self.source_selected))
+        self.message_label.show()
+        self.clock_image.hide()
         self.config_save()
 
     def show_about_window(self, data):
@@ -346,12 +355,14 @@ Special thanks to:
         return self.url_to_show(next_minute.hour, next_minute.minute)
 
     def replace_image(self, filename):
-        self.window.set_size_request(
-            self.source_urls[self.source_selected]['width'],
-            self.source_urls[self.source_selected]['height']
-        )
+        #self.window.set_size_request(
+        #    self.source_urls[self.source_selected]['width'],
+        #    self.source_urls[self.source_selected]['height']
+        #)
+        self.message_label.hide()
         self.clock_image.set_from_file(filename)
         self.last_source_selected = self.source_selected
+        self.clock_image.show()
         os.remove(filename)
 
     def do_show(self):
