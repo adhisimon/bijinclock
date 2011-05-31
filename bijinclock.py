@@ -113,6 +113,7 @@ class Bijin:
 
     is_always_on_top = False
     is_fetch_next = True
+    is_fullscreen = False
     window = None
     clock_image = None
     is_exit = False
@@ -243,6 +244,22 @@ class Bijin:
                     self.toggle_always_on_top,
                     # active flag
                     self.is_always_on_top
+                ),
+                (
+                    # action name
+                    'Fullscreen',
+                    # stock id
+                    None,
+                    # label
+                    '_Fullscreen',
+                    # accelerator
+                    None,
+                    # tooltip
+                    None,
+                    # callback
+                    self.on_toggle_fullscreen,
+                    # active flag
+                    self.is_fullscreen
                 )
             ]
         )
@@ -281,6 +298,14 @@ class Bijin:
 
     def on_button_press_event(self, widget, event):
         self.popup.popup(None, None, None, event.button, event.time)
+
+    def on_toggle_fullscreen(self, action):
+        self.is_fullscreen = not self.is_fullscreen
+
+        if self.is_fullscreen:
+            self.window.fullscreen()
+        else:
+            self.window.unfullscreen()
 
     def toggle_always_on_top(self, action):
         self.is_always_on_top = action.get_active()
