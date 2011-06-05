@@ -199,6 +199,7 @@ class Bijin:
             <popup name="Popup">
                 <separator />
                 <menuitem name="AlwaysOnTop" action="AlwaysOnTop" />
+                <menuitem name="Fullscreen" action="Fullscreen" />
                 <separator />
                 <menuitem name="About" action="About" />
                 <menuitem name="Homepage" action="Homepage" />
@@ -303,8 +304,16 @@ class Bijin:
         self.is_fullscreen = not self.is_fullscreen
 
         if self.is_fullscreen:
+            self.window.hide()
+            self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_NORMAL)
+            self.window.set_resizable(True)
+            self.window.show()
             self.window.fullscreen()
         else:
+            self.window.hide()
+            self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
+            self.window.set_resizable(False)
+            self.window.show()
             self.window.unfullscreen()
 
     def toggle_always_on_top(self, action):
