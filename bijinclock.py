@@ -130,7 +130,6 @@ class Bijin:
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title('loading...')
-        #self.window.set_default_size(160, 240)
         self.window.set_resizable(False)
 
         self.init_icon()
@@ -141,10 +140,11 @@ class Bijin:
         self.window.add(vbox)
 
         event_box = gtk.EventBox()
+        event_box.modify_bg(gtk.STATE_NORMAL, gtk.gdk.Color(0, 0, 0))
         vbox.add(event_box)
 
         self.message_label = gtk.Label('  please wait while loading...  ')
-        vbox.add(self.message_label)
+        vbox.pack_start(self.message_label, False, False, 0)
 
         self.clock_image = gtk.Image()
         event_box.add(self.clock_image)
