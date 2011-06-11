@@ -9,6 +9,7 @@ import gtk
 import gobject
 gobject.threads_init()
 
+import gzip
 import os
 import re
 import shutil
@@ -20,6 +21,7 @@ from datetime import datetime
 from datetime import time
 from datetime import timedelta
 import ConfigParser
+from StringIO import StringIO
 from time import sleep
 
 class Bijin:
@@ -97,6 +99,7 @@ class Bijin:
     last_time = None
     popup = None
     message_label = None
+    latest_version_label = None
 
     def __init__(self):
         if os.name == 'nt':
@@ -323,6 +326,9 @@ class Bijin:
         window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         window.modify_bg(gtk.STATE_NORMAL, gtk.gdk.Color('#fff'))
 
+        vbox = gtk.VBox()
+        window.add(vbox)
+
         textview = gtk.TextView()
         textview.set_editable(False)
         textview.set_cursor_visible(False)
@@ -340,7 +346,13 @@ Special thanks to:
         """ % self.version
         )
 
-        window.add(textview)
+        vbox.add(textview)
+
+        self.latest_version_label = gtk.Label("Loading latest version information from the web...")
+        vbox.add(self.latest_version_label)
+
+        fetch_latest_version_info = FetchLatestVersionInfo(self)
+        fetch_latest_version_info.start()
 
         window.show_all()
 
@@ -379,7 +391,6 @@ Special thanks to:
             and self.last_time.minute == now.minute
         ):
             return
-
 
         url = self.url_to_show()
         filename = self.do_fetch(url)
@@ -466,6 +477,37 @@ class IntervalThread(threading.Thread):
             sleep_time = next_minute - now
 
             sleep(min(2, sleep_time.seconds + 1))
+
+class FetchLatestVersionInfo(threading.Thread):
+    caller = None
+
+    def __init__(self, caller):
+        super(FetchLatestVersionInfo, self).__init__()
+        self.caller = caller
+
+    def run(self):
+        caller = self.caller
+
+        try:
+            response = urllib.urlopen("http://adhisimon.github.com/bijinclock/LATEST_VERSION.txt")
+        except:
+            print 'failed to get information about latest version on the web'
+            return
+
+        if response.info().get('Content-Encoding') == 'gzip':
+            buf = StringIO(response.read())
+            f = gzip.GzipFile(fileobj = buf)
+            response_text = f.read()
+        else:
+            response_text = response.read()
+
+        m = re.search(r"===LATEST_VERSION=(.*)===", response_text)
+        if m:
+            latest_version = m.group(1)
+            gobject.idle_add(
+                caller.latest_version_label.set_text,
+                "Your version is: %s, latest stable version is: %s" % (caller.version, latest_version)
+            )
 
 class MyUrlOpener(FancyURLopener):
     version = 'BijinClock http://adhisimon.or.id/bijinclock'
